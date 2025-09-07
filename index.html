@@ -1,0 +1,188 @@
+<!--         С-- --> 
+<!--      C-- -->
+<!--    C-- ->
+<!--    C-- -->
+<!--    C-- -->
+<!--      C-- -->
+<!--         C-- -->
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>CapybaraChat By CapybaraABC.NET</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #141414, #343434);
+            font-family: 'Courier New', monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .game-box {
+            background: white;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            text-align: center;
+            max-width: 400px;
+        }
+        
+        .capybara {
+            font-size: 60px;
+            margin: 20px 0;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+        
+        .status {
+            background: #f0f8ff;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        
+        button {
+            background: #ff3030;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            margin: 5px;
+            transition: background 0.3s;
+        }
+        
+        button:hover {
+            background: #ff0000;
+        }
+        
+        h1, h3 {
+            color: #000000;
+            margin-bottom: 10px;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 50px;
+        }
+        #output {
+            margin-top: 20px;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <div class="game-box">
+        <h1>CapybaraChat</h1>
+        <p>Крутой голосовой бот</p>
+        <h3>Привет! CapybaraChat - Это крутой голосовой бот, чтобы посмотреть как пользоваться им читайте</h3>
+        <a href="i.html">Здесь</a>
+        <p></p>
+        <button id="start-button">Начать разговор</button>
+        <div id="output"></div>
+    </div>
+    <script>
+        const outputText = document.getElementById('output');
+const startButton = document.getElementById('start-button');
+
+if (!('webkitSpeechRecognition' in window)) {
+    outputText.innerHTML = 'Ваш браузер не поддерживает webkitSpeechRecognition!';
+} else {
+    const recognition = new webkitSpeechRecognition();
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.lang = 'ru-RU';
+
+    recognition.onstart = function() {
+        outputText.innerHTML = "Говорите...";
+    };
+
+    recognition.onresult = function(event) {
+        const transcript = event.results[0][0].transcript;
+        outputText.innerHTML = "Вы сказали: " + transcript;
+        respond(transcript);
+    };
+
+    recognition.onerror = function(event) {
+        outputText.innerHTML = 'Ошибка распознавания: ' + event.error;
+    };
+
+    recognition.onend = function() {
+        outputText.innerHTML += '<br>Слушание завершено.'; 
+    };
+
+    startButton.onclick = function() {
+        recognition.start();
+    };
+}
+
+function respond(transcript) {
+    let response = '';
+    if (transcript.includes('привет')) {
+        response = 'Привет! Как я могу помочь?';
+    }
+    else if (transcript.includes('как дела')) {
+        response = "Всё хорошо, а у тебя?";
+    }
+    else if (transcript.includes('пока')) {
+        response = "Пока";
+    }
+    else if (transcript.includes('что делаешь')) {
+        response = "Программирую, а ты?";
+    }
+    else if (transcript.includes('расскажи что то интересное')) {
+        response = "OK 1. Около 70% поверхности Земли покрыто водой, но только 2.5% из нее — пресная. 2. Слоны — единственные животные, которые не могут прыгать. 3. Первый электронный компьютер ENIAC весил около 30 тонн и занимал площадь в 167 квадратных метров. 4. В мире существует более 7000 языков, но около 90% людей говорят на менее чем 100 из них.";
+    }
+    else if (transcript.includes('как провести время')) {
+        response = "Чтение книг, прогулка на свежем воздухе, занятия спортом, кулинарные эксперименты, просмотр фильмов, рисование, игры, изучение нового языка, посещение музеев, волонтерство.";
+    }
+    else if (transcript.includes('в какие игры сыграть')) {
+        response = "Монополия, Диксит, Уно, Мафия, Among Us, Mario Kart, Фризби, Пейнтбол, Шахматы, Скрабл, Эскейп-румы, городские квесты, Импровизация, Сказочник.";
+    }
+    else if (transcript.includes('расскажи топ лайфаков в школе')) {
+        response = "1. Используйте цветные ручки для заметок; 2. Создайте расписание на неделю; 3. Учитесь с друзьями; 4. Скачайте приложения для заметок; 5. Практикуйте чтение по диагонали; 6. Используйте ассоциации для запоминания; 7. Создавайте карточки с вопросами; 8. Ведите здоровый образ жизни; 9. Делайте перерывы в учебе; 10. Задавайте вопросы учителям.";
+    }
+    else if (transcript.includes('скажи цитаты')) {
+        response = '1. "Не бойтесь делать шаги в неизвестность — именно там начинается ваше истинное развитие." 2. "Успех — это не конечная точка, а путь, который мы выбираем каждый день." 3. "Каждый день — это новая возможность стать лучше, чем вчера." 4. "Секрет успеха — это постоянство цели." 5. "Вы не можете изменить направление ветра, но можете настроить свои паруса." 6. "Трудности — это просто возможности в маске." 7. "Будьте тем изменением, которое хотите видеть в мире." 8. "Ваше время ограничено, не тратьте его, живя чужой жизнью."';
+    }
+    else if (transcript.includes('расскажи исторические факты')) {
+        response = "Древний Египет: Пирамиды Гизы — самые высокие структуры до 3,800 лет; Рим: акведуки до сих пор функционируют; Викинги: торговцы и мореплаватели; Французская революция (1789) — падение монархии; Гражданская война в США (1861-1865) — конфликт из-за рабства; Первая мировая война (1914-1918) — разрушительная война; Вторая мировая война (1939-1945) — самая масштабная война; Холодная война — противостояние США и СССР.";
+    }
+    else if (transcript.includes('расскажи интересное о животных')) {
+        response = "Слоны умные и имеют отличную память, осьминоги имеют три сердца и голубую кровь, пингвины не летают, но отлично плавают, кошки издают более 100 звуков, голубые киты — самые большие животные, летучие мыши используют эхолокацию, а фламинго получают розовый цвет от каротиноидов в пище.";
+    }
+    else if (transcript.includes('скажи что то на английском')) {
+        response = "this is the CapybaraChat bot, a cool bot, I hope you like it, в переводе: это бот CapybaraChat, крутой бот, надеюсь вам понравится";
+    }
+    else if (transcript.includes('расскажи про собак и капибар')) {
+        response = "Собаки — преданные и умные компаньоны человека, а капибары — миролюбивые и социальные грызуны, известные своей дружелюбной натурой и способностью ладить с другими животными.";
+    }
+    else if (transcript.includes('расскажи про успех')) {
+        response = "Успех — это достижение поставленных целей, которое приносит удовлетворение и радость.";
+    }
+    else if (transcript.includes('расскажи про языки программирования')) {
+        response = "Языки программирования — это формальные системы, используемые для написания программ, которые управляют поведением компьютеров и выполняют различные задачи.";
+    }
+    else {
+        response = "Я не понял вас";
+    }
+
+    const utterance = new SpeechSynthesisUtterance(response);
+    window.speechSynthesis.speak(utterance);
+}
+
+        
+    </script>
+</body>
+</html>
